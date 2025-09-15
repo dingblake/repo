@@ -1,0 +1,65 @@
+{
+	"compiler": {
+		"version": "0.8.23+commit.f704f362"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					}
+				],
+				"name": "sayhello",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"tests/test.sol": "hello"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"tests/test.sol": {
+			"keccak256": "0xc393c2b819c90c1c8240f6432539088f02e2d6c2655c8e25290403920871d746",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c85e4d42712b4cac4b1d39e1143907fb678da64a43881626cd15624525864c76",
+				"dweb:/ipfs/QmbNB3JfthhxFsdKXdJxNupHo1AGQVV8Kti7anJJWAkzSn"
+			]
+		}
+	},
+	"version": 1
+}

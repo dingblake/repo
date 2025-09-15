@@ -1,0 +1,70 @@
+{
+	"compiler": {
+		"version": "0.8.29+commit.ab55807c"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "num",
+						"type": "uint256"
+					}
+				],
+				"name": "toRoman",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"tests/task_2/task_2_3_RomanNumerals.sol": "RomanNumerals"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"tests/task_2/task_2_3_RomanNumerals.sol": {
+			"keccak256": "0x50f67ecf5dfd306e21aa6dc340d649f93f8de85abdae46fd35ad9cec76fa2861",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://eeec5a05b1900545959cf023962b8aac4c563a8e2daee1bb8a95ab43c0ce75cc",
+				"dweb:/ipfs/QmX7gCmu7JdG1QkHiq2LA7vpqtoQ2mPGgEnCxKgZaSFmHc"
+			]
+		}
+	},
+	"version": 1
+}

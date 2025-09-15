@@ -1,0 +1,45 @@
+{
+	"compiler": {
+		"version": "0.8.29+commit.ab55807c"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"tests/task_2/task_2_3_.sol": "IntToRoman"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"tests/task_2/task_2_3_.sol": {
+			"keccak256": "0x89b7c02ffcc9cf33064623317e2dd0f126a6bd6365e05c5e797aab74ae3c4354",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5f4affb683c06ff87f81b21ad48df16ffa08dfdb3311ba248a77fbeae421b2c2",
+				"dweb:/ipfs/QmbqBSr1m7dJAbNggbAdSQmY8y7kozUArjHG5QYUhDsifs"
+			]
+		}
+	},
+	"version": 1
+}

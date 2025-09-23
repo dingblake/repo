@@ -1,0 +1,59 @@
+{
+	"compiler": {
+		"version": "0.8.23+commit.f704f362"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "getRandomNumber",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"tests/ABI.sol": "ABI"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"tests/ABI.sol": {
+			"keccak256": "0xe5d8c8e2906a6bc904cf8a1ecab15ea9cfc684ba21830e44bdb820d3e9b45000",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e7c15d96bbaa7f33ff3ebea230d90d74f043de8bc3640a9dadd88220fc319f47",
+				"dweb:/ipfs/Qmd9Ujkic7eeRhBo7kVTpsmi6GZoVKjcbZ5Vn6nzpoEGod"
+			]
+		}
+	},
+	"version": 1
+}

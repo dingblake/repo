@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.29+commit.ab55807c"
+		"version": "0.8.0+commit.c7dfd78e"
 	},
 	"language": "Solidity",
 	"output": {
@@ -40,7 +40,7 @@
 		"compilationTarget": {
 			"tests/task_2/task_2_2_Reverse.sol": "Reverse_string"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "istanbul",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -53,11 +53,11 @@
 	},
 	"sources": {
 		"tests/task_2/task_2_2_Reverse.sol": {
-			"keccak256": "0x05482637ed8ed7e970ad9ee5554c238eac2ab0475f0984e44b0c93e347a4e8d4",
+			"keccak256": "0x9c94be594fb97c478546c198c45f456c1e45d25f538fc5abbcce431e400d3139",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://85449e9294d63b98116ef4fc31c3c0f6c32e2ee113b7a54b5f0224b660b1a6a9",
-				"dweb:/ipfs/QmS4Ly8qywCWZWA3TEY9TS7SKfMQsGA12BkYGtz1jL5Rgn"
+				"bzz-raw://4165820fc122c73d1a2c7cab2ef88533d28440131aa8e55df83752b290994a7c",
+				"dweb:/ipfs/QmYajTTT5qy9PgixXnbuw9wci72qw4KaZEuweN1iwwas3c"
 			]
 		}
 	},

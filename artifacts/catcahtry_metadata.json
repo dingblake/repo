@@ -1,0 +1,83 @@
+{
+	"compiler": {
+		"version": "0.8.23+commit.f704f362"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "he",
+				"outputs": [
+					{
+						"internalType": "contract hand",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bool",
+						"name": "conditon",
+						"type": "bool"
+					}
+				],
+				"name": "trycatch",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"tests/code.sol": "catcahtry"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"tests/code.sol": {
+			"keccak256": "0x5a46bbe121f9b4d6dc63d7bcea1c25c7adf863382ffe386c7800420b4e055453",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://93730bf3013f6ba2c1aaebbfa65117ed324a277bfbc7f6a327813c83655989cb",
+				"dweb:/ipfs/QmQomdRbG7XbJPaCwG6TFUptorAYXtXXeggnm8LtfXo84S"
+			]
+		}
+	},
+	"version": 1
+}

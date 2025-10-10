@@ -58,7 +58,6 @@ func main() {
 	}
 	// 配置
 
-	//infuraURL = fmt.Sprintf("https://sepolia.infura.io/v3/%s", os.Getenv("INFURA_API_KEY"))
 	privateKeyStr := os.Getenv("PRIVATE_KEY")
 
 	client, err := ethclient.Dial(infuraURL)

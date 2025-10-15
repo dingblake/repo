@@ -1,0 +1,3 @@
+channel: v1.17.0
+commit: 660e41a8e182faadec2861db74b86b8dfe1679f5
+target: x86_64-unknown-linux-gnu

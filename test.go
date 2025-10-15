@@ -2,93 +2,88 @@ package main
 
 import (
 	"context"
-	"crypto/ecdsa"
 	"fmt"
 	"log"
 	"math/big"
-
-	"golang.org/x/crypto/sha3"
+	"os"
+	"strings"
 
 	"github.com/ethereum/go-ethereum"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/joho/godotenv"
 )
 
+var StoreABI = `[{"inputs":[{"internalType":"string","name":"_version","type":"string"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"key","type":"bytes32"},{"indexed":false,"internalType":"bytes32","name":"value","type":"bytes32"}],"name":"ItemSet","type":"event"},{"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"name":"items","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"key","type":"bytes32"},{"internalType":"bytes32","name":"value","type":"bytes32"}],"name":"setItem","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"version","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}]`
+
 func main() {
-	client, err := ethclient.Dial("https://eth-sepolia.g.alchemy.com/v2/")
+	// 加载环境变量
+	godotenv.Load()
+
+	// 使用 Sepolia 测试网（推荐）
+	infuraProjectID := os.Getenv("INFURA_API_KEY")
+	if infuraProjectID == "" {
+		log.Fatal("请设置 INFURA_API_KEY 环境变量")
+	}
+
+	// WebSocket 连接 Sepolia
+	client, err := ethclient.Dial(fmt.Sprintf("wss://sepolia.infura.io/ws/v3/%s", infuraProjectID))
+	if err != nil {
+		log.Fatal("连接失败:", err)
+	}
+	defer client.Close()
+	contractAddress := common.HexToAddress("0x2958d15bc5b64b11Ec65e623Ac50C198519f8742")
+	query := ethereum.FilterQuery{
+		FromBlock: big.NewInt(6920583),
+		// ToBlock:   big.NewInt(2394201),
+		Addresses: []common.Address{
+			contractAddress,
+		},
+		// Topics: [][]common.Hash{
+		//  {},
+		//  {},
+		// },
+	}
+
+	logs, err := client.FilterLogs(context.Background(), query)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	privateKey, err := crypto.HexToECDSA("账户私钥")
+	contractAbi, err := abi.JSON(strings.NewReader(StoreABI))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	publicKey := privateKey.Public()
-	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
-	if !ok {
-		log.Fatal("cannot assert type: publicKey is not of type *ecdsa.PublicKey")
+	for _, vLog := range logs {
+		fmt.Println(vLog.BlockHash.Hex())
+		fmt.Println(vLog.BlockNumber)
+		fmt.Println(vLog.TxHash.Hex())
+		event := struct {
+			Key   [32]byte
+			Value [32]byte
+		}{}
+		err := contractAbi.UnpackIntoInterface(&event, "ItemSet", vLog.Data)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Println(common.Bytes2Hex(event.Key[:]))
+		fmt.Println(common.Bytes2Hex(event.Value[:]))
+		var topics []string
+		for i := range vLog.Topics {
+			topics = append(topics, vLog.Topics[i].Hex())
+		}
+
+		fmt.Println("topics[0]=", topics[0])
+		if len(topics) > 1 {
+			fmt.Println("indexed topics:", topics[1:])
+		}
 	}
 
-	fromAddress := crypto.PubkeyToAddress(*publicKeyECDSA)
-	nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	value := big.NewInt(0) // in wei (0 eth)
-	gasPrice, err := client.SuggestGasPrice(context.Background())
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	toAddress := common.HexToAddress("0x4592d8f8d7b001e72cb26a73e4fa1806a51ac79d")
-	tokenAddress := common.HexToAddress("0x28b149020d2152179873ec60bed6bf7cd705775d")
-
-	transferFnSignature := []byte("transfer(address,uint256)")
-	hash := sha3.NewLegacyKeccak256()
-	hash.Write(transferFnSignature)
-	methodID := hash.Sum(nil)[:4]
-	fmt.Println(hexutil.Encode(methodID)) // 0xa9059cbb
-	paddedAddress := common.LeftPadBytes(toAddress.Bytes(), 32)
-	fmt.Println(hexutil.Encode(paddedAddress)) // 0x0000000000000000000000004592d8f8d7b001e72cb26a73e4fa1806a51ac79d
-	amount := new(big.Int)
-	amount.SetString("1000000000000000000000", 10) // 1000 tokens
-	paddedAmount := common.LeftPadBytes(amount.Bytes(), 32)
-	fmt.Println(hexutil.Encode(paddedAmount)) // 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
-	var data []byte
-	data = append(data, methodID...)
-	data = append(data, paddedAddress...)
-	data = append(data, paddedAmount...)
-
-	gasLimit, err := client.EstimateGas(context.Background(), ethereum.CallMsg{
-		To:   &toAddress,
-		Data: data,
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(gasLimit) // 23256
-	tx := types.NewTransaction(nonce, tokenAddress, value, gasLimit, gasPrice, data)
-
-	chainID, err := client.NetworkID(context.Background())
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(chainID), privateKey)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = client.SendTransaction(context.Background(), signedTx)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Printf("tx sent: %s", signedTx.Hash().Hex()) // tx sent: 0xa56316b637a94c4cc0331c73ef26389d6c097506d581073f927275e7a6ece0bc
+	eventSignature := []byte("ItemSet(bytes32,bytes32)")
+	hash := crypto.Keccak256Hash(eventSignature)
+	fmt.Println("signature topics=", hash.Hex())
 }
